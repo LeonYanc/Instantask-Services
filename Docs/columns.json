@@ -1,0 +1,1 @@
+[{"_id":{"$oid":"67aa83226bdfc20047e57ed0"},"name":"To Do","taskCardList":[{"$oid":"67aa87546bdfc20047e57f0b"},{"$oid":"67aa875e6bdfc20047e57f0c"}],"isInitialColumn":true},{"_id":{"$oid":"67aa832f6bdfc20047e57ed1"},"name":"In Progress","taskCardList":[],"isInitialColumn":false}]

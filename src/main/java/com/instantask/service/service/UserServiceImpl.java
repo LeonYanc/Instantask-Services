@@ -12,10 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Implementation of UserService interface, using MongoDB for data storage.
- * This is a basic demo; real production code should handle exceptions, password hashing, etc.
- */
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,51 +21,41 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Register a new user based on RegisterRequestDto.
-     *  - Checks if the email already exists
-     *  - Creates a new User object with 'Active' status
-     *  - Saves to MongoDB
-     *  - Returns a UserDetailDto (id, name, email)
+
      */
     @Override
     public UserDetailDto register(RegisterRequestDto dto) {
-        // 1) Check if email is in use
+
         Optional<User> existing = userRepository.findByEmail(dto.getEmail());
         if (existing.isPresent()) {
             throw new RuntimeException("Email already in use: " + dto.getEmail());
         }
 
-        // 2) Create a new User entity
+
         User newUser = new User();
         newUser.setName(dto.getName());
         newUser.setEmail(dto.getEmail());
         newUser.setTel(dto.getTel());
-        // For demo only: storing password in plain text
-        newUser.setPassword(dto.getPassword());
-        newUser.setStatus("Active"); // or "Registered"
-        newUser.setLastActiveTime(LocalDateTime.now());
-        // If you need a default role, set it here:
-        // newUser.setRole("viewer");
 
-        // 3) Save to DB
+        newUser.setPassword(dto.getPassword());
+        newUser.setStatus("Active");
+        newUser.setLastActiveTime(LocalDateTime.now());
+
+
         User savedUser = userRepository.save(newUser);
 
-        // 4) Convert to DTO
+
         return new UserDetailDto(savedUser.getId(), savedUser.getName(), savedUser.getEmail());
     }
 
     /**
      * Login with email and password.
-     *  - Finds user by email
-     *  - Checks password (plain text example)
-     *  - Updates lastActiveTime
-     *  - Returns UserDetailDto
      */
     @Override
     public UserDetailDto login(LoginRequestDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + dto.getEmail()));
 
-        // Here just compare plain text, real case: match hashed password
         if (!user.getPassword().equals(dto.getPassword())) {
             throw new RuntimeException("Incorrect password.");
         }
@@ -80,8 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get a user's detail (for user detail page),
-     * returns only name & email in the DTO.
+     * Get a user's detail
      */
     @Override
     public UserDetailDto getUserDetail(String userId) {
@@ -92,9 +78,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Fetch all users and build a UserListResponseDto.
-     *  - totalUsers: number of all users
-     *  - totalAdmins: number of users with role = "admin" (example)
-     *  - userList: each item includes id, name, email, lastActiveTime, status
      */
     @Override
     public UserListResponseDto getUserList() {
@@ -129,9 +112,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Invite a user by email with a given role.
-     *  - If email exists, throw exception or handle it
-     *  - Otherwise create a new user with "Invited" status
-     *  - Return a basic UserDetailDto
      */
     @Override
     public UserDetailDto inviteUser(InviteRequestDto dto) {
@@ -144,14 +124,67 @@ public class UserServiceImpl implements UserService {
         invitedUser.setEmail(dto.getEmail());
         invitedUser.setRole(dto.getRole());
         invitedUser.setStatus("Invited");
-        // no password at this time or set a random placeholder
+
         invitedUser.setPassword(null);
-        // name might be unknown at the invite stage, or you can set from request
+
         invitedUser.setName("");
         invitedUser.setLastActiveTime(null);
 
         User saved = userRepository.save(invitedUser);
         return new UserDetailDto(saved.getId(), saved.getName(), saved.getEmail());
+    }
+
+    @Override
+    public UserDetailDto updateUser(String userId, UpdateUserRequestDto dto) {
+
+        User existing = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found: " + userId));
+
+
+        if (dto.getName() != null) {
+            existing.setName(dto.getName());
+        }
+        if (dto.getEmail() != null) {
+            existing.setEmail(dto.getEmail());
+        }
+        if (dto.getPassword() != null) {
+            existing.setPassword(dto.getPassword());
+        }
+        if (dto.getTel() != null) {
+            existing.setTel(dto.getTel());
+        }
+        if (dto.getStatus() != null) {
+            existing.setStatus(dto.getStatus());
+        }
+        if (dto.getLastActiveTime() != null) {
+
+            existing.setLastActiveTime(dto.getLastActiveTime());
+        }
+        if (dto.getRole() != null) {
+            existing.setRole(dto.getRole());
+        }
+
+
+        User savedUser = userRepository.save(existing);
+
+
+        return new UserDetailDto(savedUser.getId(), savedUser.getName(), savedUser.getEmail());
+    }
+
+    @Override
+    public void deleteUser(String userId) {
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (!userOpt.isPresent()) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        // send an email with reset link, or set a temporary password，not finish
+        System.out.println("[ForgotPassword] Reset link sent to: " + email);
     }
 }
 

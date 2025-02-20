@@ -1,4 +1,6 @@
 package com.instantask.service.controller;
+import com.instantask.service.model.User;
+
 
 import com.instantask.service.dto.*;
 import com.instantask.service.service.UserService;
@@ -48,6 +50,30 @@ public class UserController {
     public ResponseEntity<UserDetailDto> inviteUser(@RequestBody InviteRequestDto dto) {
         UserDetailDto result = userService.inviteUser(dto);
         return ResponseEntity.ok(result);
+    }
+
+    //update
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDetailDto> updateUser(
+            @PathVariable String id,
+            @RequestBody UpdateUserRequestDto dto
+    ) {
+        UserDetailDto updated = userService.updateUser(id, dto);
+        return ResponseEntity.ok(updated);
+    }
+
+    // delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") String userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build(); // 204
+    }
+
+    // forget password
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+        userService.forgotPassword(email);
+        return ResponseEntity.ok("Reset password link sent to " + email);
     }
 
 }

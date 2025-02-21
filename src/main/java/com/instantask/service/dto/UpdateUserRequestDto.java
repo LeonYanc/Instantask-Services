@@ -1,31 +1,25 @@
-package com.instantask.service.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.instantask.service.dto;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "users")
-public class User {
+/**
+ * DTO for updating user information.
+ */
+public class UpdateUserRequestDto {
 
-    @Id
-    private String id;
     private String name;
     private String email;
     private String password;
     private String tel;
     private String status;
-    private LocalDateTime lastActiveTime;
+    private LocalDateTime lastActiveTime;  // optional, your call
+    private String role;
 
-    private String role;               // Role: "admin", "viewer", etc.
-
-    // -------------- Constructors --------------
-
-    public User() {
+    public UpdateUserRequestDto() {
     }
 
-    public User(String name, String email, String password, String tel,
-                String status, LocalDateTime lastActiveTime, String role) {
+    public UpdateUserRequestDto(String name, String email, String password,
+                                String tel, String status, LocalDateTime lastActiveTime, String role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -35,14 +29,7 @@ public class User {
         this.role = role;
     }
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    // ========== Getters & Setters ==========
 
     public String getName() {
         return name;
@@ -99,20 +86,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='[PROTECTED]'" +  // pasword
-                ", tel='" + tel + '\'' +
-                ", status='" + status + '\'' +
-                ", lastActiveTime=" + lastActiveTime +
-                ", role='" + role + '\'' +
-                '}';
-    }
 }
-

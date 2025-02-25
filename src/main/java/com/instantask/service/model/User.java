@@ -5,36 +5,36 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
+/**
+ * User entity for MongoDB (collection = "users").
+ * No role field here, since roles are handled by UserAccess.
+ */
 @Document(collection = "users")
 public class User {
 
     @Id
-    private String id;
+    private String id; // MongoDB primary key (ObjectId as String)
     private String name;
     private String email;
     private String password;
     private String tel;
-    private String status;
+    private String status; // e.g., "Active", "Invited"
     private LocalDateTime lastActiveTime;
-
-    private String role;               // Role: "admin", "viewer", etc.
-
-    // -------------- Constructors --------------
 
     public User() {
     }
 
     public User(String name, String email, String password, String tel,
-                String status, LocalDateTime lastActiveTime, String role) {
+                String status, LocalDateTime lastActiveTime) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.tel = tel;
         this.status = status;
         this.lastActiveTime = lastActiveTime;
-        this.role = role;
     }
 
+    // ============ Getters & Setters ============
 
     public String getId() {
         return id;
@@ -92,26 +92,16 @@ public class User {
         this.lastActiveTime = lastActiveTime;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='[PROTECTED]'" +  // pasword
-                ", tel='" + tel + '\'' +
+                ", password='[PROTECTED]', " + // avoid printing real password
+                "tel='" + tel + '\'' +
                 ", status='" + status + '\'' +
                 ", lastActiveTime=" + lastActiveTime +
-                ", role='" + role + '\'' +
                 '}';
     }
 }

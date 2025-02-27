@@ -62,8 +62,6 @@ public class TaskCardController {
      */
     @PutMapping("/{id}")
     public TaskCard updateTaskCard(@PathVariable String id, @RequestBody TaskCard updatedCard) {
-        // If user tries to change 'id', we always respect the path variable (id),
-        // but let's confirm if the Task exists for that 'id'.
         Optional<Task> taskOpt = taskRepository.findById(id);
         if (taskOpt.isEmpty()) {
             throw new IllegalArgumentException("No Task found with id=" + id);
@@ -71,20 +69,14 @@ public class TaskCardController {
         Task task = taskOpt.get();
 
         return taskCardRepository.findById(id).map(card -> {
-            // Keep 'id' in sync with path variable
             card.setId(id);
 
-            // Force synchronization with Task's assigneeId
             card.syncWithTask(task);
 
-            // Let the user update other fields (e.g. priority)
             card.setPriority(updatedCard.getPriority());
             return taskCardRepository.save(card);
 
         }).orElseGet(() -> {
-            // If TaskCard doesn't exist yet but Task does, we can either:
-            // 1) Create a new TaskCard, or
-            // 2) Return error. Let's choose to create it here for convenience.
             updatedCard.setId(id);
             updatedCard.syncWithTask(task);
             return taskCardRepository.save(updatedCard);

@@ -2,8 +2,11 @@ package com.instantask.service.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(collection = "tasks")
@@ -15,8 +18,12 @@ public class Task {
     private String assignee;
     private String reporter;
     private String status;
-    private Date issuedTime;
-    private Date dueTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime issuedTime;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dueTime;
+
     private boolean visibility;
     private List<String> attachedTask;
     private List<String> comments;
@@ -26,9 +33,11 @@ public class Task {
     public Task() {
     }
 
-    public Task(String name, String assignee, String reporter, String status, Date issuedTime,
-                Date dueTime, boolean visibility, List<String> attachedTask, List<String> comments,
-                List<String> history, String description) {
+    public Task(String name, String assignee, String reporter, String status,
+                LocalDateTime issuedTime, LocalDateTime dueTime,
+                boolean visibility, List<String> attachedTask,
+                List<String> comments, List<String> history,
+                String description) {
         this.name = name;
         this.assignee = assignee;
         this.reporter = reporter;
@@ -42,6 +51,7 @@ public class Task {
         this.description = description;
     }
 
+    // 1. ID
     public String getId() {
         return id;
     }
@@ -50,6 +60,7 @@ public class Task {
         this.id = id;
     }
 
+    // 2. Name
     public String getName() {
         return name;
     }
@@ -58,6 +69,7 @@ public class Task {
         this.name = name;
     }
 
+    // 3. Assignee
     public String getAssignee() {
         return assignee;
     }
@@ -66,6 +78,7 @@ public class Task {
         this.assignee = assignee;
     }
 
+    // 4. Reporter
     public String getReporter() {
         return reporter;
     }
@@ -74,6 +87,7 @@ public class Task {
         this.reporter = reporter;
     }
 
+    // 5. Status
     public String getStatus() {
         return status;
     }
@@ -82,22 +96,25 @@ public class Task {
         this.status = status;
     }
 
-    public Date getIssuedTime() {
+    // 6. IssuedTime
+    public LocalDateTime getIssuedTime() {
         return issuedTime;
     }
 
-    public void setIssuedTime(Date issuedTime) {
+    public void setIssuedTime(LocalDateTime issuedTime) {
         this.issuedTime = issuedTime;
     }
 
-    public Date getDueTime() {
+    // 7. DueTime
+    public LocalDateTime getDueTime() {
         return dueTime;
     }
 
-    public void setDueTime(Date dueTime) {
+    public void setDueTime(LocalDateTime dueTime) {
         this.dueTime = dueTime;
     }
 
+    // 8. Visibility
     public boolean isVisibility() {
         return visibility;
     }
@@ -106,6 +123,7 @@ public class Task {
         this.visibility = visibility;
     }
 
+    // 9. AttachedTask
     public List<String> getAttachedTask() {
         return attachedTask;
     }
@@ -114,6 +132,7 @@ public class Task {
         this.attachedTask = attachedTask;
     }
 
+    // 10. Comments
     public List<String> getComments() {
         return comments;
     }
@@ -122,6 +141,7 @@ public class Task {
         this.comments = comments;
     }
 
+    // 11. History
     public List<String> getHistory() {
         return history;
     }
@@ -130,12 +150,22 @@ public class Task {
         this.history = history;
     }
 
+    // 12. Description
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String toJson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error converting Task to JSON", e);
+        }
     }
 
     @Override

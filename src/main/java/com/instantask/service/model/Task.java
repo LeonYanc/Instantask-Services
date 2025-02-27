@@ -15,43 +15,42 @@ public class Task {
     @Id
     private String id;
     private String name;
-    private String assignee;
-    private String reporter;
-    private String status;
+    private String assigneeId;
+    private String reporterId;
+    private String statusColumnId;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime issuedTime;
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dueTime;
 
     private boolean visibility;
-    private List<String> attachedTask;
-    private List<String> comments;
-    private List<String> history;
+    private List<String> attachedTaskIds;
+    private List<String> commentIds;
+    private List<String> historyIds;
     private String description;
 
     public Task() {
     }
 
-    public Task(String name, String assignee, String reporter, String status,
-                LocalDateTime issuedTime, LocalDateTime dueTime,
-                boolean visibility, List<String> attachedTask,
-                List<String> comments, List<String> history,
-                String description) {
+    public Task(String name, String assigneeId, String reporterId, String statusColumnId,
+                LocalDateTime issuedTime, LocalDateTime dueTime, boolean visibility,
+                List<String> attachedTaskIds, List<String> commentIds,
+                List<String> historyIds, String description) {
         this.name = name;
-        this.assignee = assignee;
-        this.reporter = reporter;
-        this.status = status;
+        this.assigneeId = assigneeId;
+        this.reporterId = reporterId;
+        this.statusColumnId = statusColumnId;
         this.issuedTime = issuedTime;
         this.dueTime = dueTime;
         this.visibility = visibility;
-        this.attachedTask = attachedTask;
-        this.comments = comments;
-        this.history = history;
+        this.attachedTaskIds = attachedTaskIds;
+        this.commentIds = commentIds;
+        this.historyIds = historyIds;
         this.description = description;
     }
 
-    // 1. ID
     public String getId() {
         return id;
     }
@@ -60,7 +59,6 @@ public class Task {
         this.id = id;
     }
 
-    // 2. Name
     public String getName() {
         return name;
     }
@@ -69,34 +67,30 @@ public class Task {
         this.name = name;
     }
 
-    // 3. Assignee
-    public String getAssignee() {
-        return assignee;
+    public String getAssigneeId() {
+        return assigneeId;
     }
 
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
+    public void setAssigneeId(String assigneeId) {
+        this.assigneeId = assigneeId;
     }
 
-    // 4. Reporter
-    public String getReporter() {
-        return reporter;
+    public String getReporterId() {
+        return reporterId;
     }
 
-    public void setReporter(String reporter) {
-        this.reporter = reporter;
+    public void setReporterId(String reporterId) {
+        this.reporterId = reporterId;
     }
 
-    // 5. Status
-    public String getStatus() {
-        return status;
+    public String getStatusColumnId() {
+        return statusColumnId;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusColumnId(String statusColumnId) {
+        this.statusColumnId = statusColumnId;
     }
 
-    // 6. IssuedTime
     public LocalDateTime getIssuedTime() {
         return issuedTime;
     }
@@ -105,7 +99,6 @@ public class Task {
         this.issuedTime = issuedTime;
     }
 
-    // 7. DueTime
     public LocalDateTime getDueTime() {
         return dueTime;
     }
@@ -114,7 +107,6 @@ public class Task {
         this.dueTime = dueTime;
     }
 
-    // 8. Visibility
     public boolean isVisibility() {
         return visibility;
     }
@@ -123,34 +115,30 @@ public class Task {
         this.visibility = visibility;
     }
 
-    // 9. AttachedTask
-    public List<String> getAttachedTask() {
-        return attachedTask;
+    public List<String> getAttachedTaskIds() {
+        return attachedTaskIds;
     }
 
-    public void setAttachedTask(List<String> attachedTask) {
-        this.attachedTask = attachedTask;
+    public void setAttachedTaskIds(List<String> attachedTaskIds) {
+        this.attachedTaskIds = attachedTaskIds;
     }
 
-    // 10. Comments
-    public List<String> getComments() {
-        return comments;
+    public List<String> getCommentIds() {
+        return commentIds;
     }
 
-    public void setComments(List<String> comments) {
-        this.comments = comments;
+    public void setCommentIds(List<String> commentIds) {
+        this.commentIds = commentIds;
     }
 
-    // 11. History
-    public List<String> getHistory() {
-        return history;
+    public List<String> getHistoryIds() {
+        return historyIds;
     }
 
-    public void setHistory(List<String> history) {
-        this.history = history;
+    public void setHistoryIds(List<String> historyIds) {
+        this.historyIds = historyIds;
     }
 
-    // 12. Description
     public String getDescription() {
         return description;
     }
@@ -173,15 +161,15 @@ public class Task {
         return "Task{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", assignee='" + assignee + '\'' +
-                ", reporter='" + reporter + '\'' +
-                ", status='" + status + '\'' +
+                ", assigneeId='" + assigneeId + '\'' +
+                ", reporterId='" + reporterId + '\'' +
+                ", statusColumnId='" + statusColumnId + '\'' +
                 ", issuedTime=" + issuedTime +
                 ", dueTime=" + dueTime +
                 ", visibility=" + visibility +
-                ", attachedTask=" + attachedTask +
-                ", comments=" + comments +
-                ", history=" + history +
+                ", attachedTaskIds=" + attachedTaskIds +
+                ", commentIds=" + commentIds +
+                ", historyIds=" + historyIds +
                 ", description='" + description + '\'' +
                 '}';
     }

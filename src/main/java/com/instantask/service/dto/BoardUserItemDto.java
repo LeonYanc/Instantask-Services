@@ -8,13 +8,11 @@ public class BoardUserItemDto {
     private String email;
     private String lastActiveTime;
     private String status;
-    // 之前没有 role，现在加上
     private AccessRole role;
 
     public BoardUserItemDto() {
     }
 
-    // 包含 role 的构造方法
     public BoardUserItemDto(String id, String name, String email,
                             String lastActiveTime, String status,
                             AccessRole role) {

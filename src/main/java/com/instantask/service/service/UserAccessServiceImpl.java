@@ -80,7 +80,6 @@ public class UserAccessServiceImpl implements UserAccessService {
         int adminCount = 0;
 
         for (UserAccess ua : accessList) {
-            // 如果 ua.getRole() == AccessRole.ADMIN 则 adminCount++
             if (ua.getRole() == AccessRole.ADMIN) {
                 adminCount++;
             }

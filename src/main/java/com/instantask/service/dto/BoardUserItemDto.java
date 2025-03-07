@@ -1,22 +1,29 @@
 package com.instantask.service.dto;
 
-public class BoardUserItemDto {
+import com.instantask.service.model.AccessRole;
 
+public class BoardUserItemDto {
     private String id;
     private String name;
     private String email;
     private String lastActiveTime;
     private String status;
+    // 之前没有 role，现在加上
+    private AccessRole role;
 
     public BoardUserItemDto() {
     }
 
-    public BoardUserItemDto(String id, String name, String email, String lastActiveTime, String status) {
+    // 包含 role 的构造方法
+    public BoardUserItemDto(String id, String name, String email,
+                            String lastActiveTime, String status,
+                            AccessRole role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.lastActiveTime = lastActiveTime;
         this.status = status;
+        this.role = role;
     }
 
     public String getId() {
@@ -52,5 +59,12 @@ public class BoardUserItemDto {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public AccessRole getRole() {
+        return role;
+    }
+    public void setRole(AccessRole role) {
+        this.role = role;
     }
 }

@@ -1,14 +1,24 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './Login';
 import UserListPage from './UserListPage';
+import './App.css';
 
 function App() {
-  return (
-      <div style={{ padding: '1rem' }}>
-        <h1>Welcome to My Instantask App</h1>
-        {/* 这里直接渲染用户管理页面 */}
-        <UserListPage />
-      </div>
-  );
+    return (
+        <BrowserRouter>
+            <div className="app-wrapper">
+                <div className="app-content">
+                    <main className="app-main">
+                        <Routes>
+                            <Route path="/" element={<Login />} />
+                            <Route path="/UserListPage" element={<UserListPage />} />
+                        </Routes>
+                    </main>
+                </div>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

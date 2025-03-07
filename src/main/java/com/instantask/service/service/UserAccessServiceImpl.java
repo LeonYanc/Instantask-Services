@@ -80,6 +80,7 @@ public class UserAccessServiceImpl implements UserAccessService {
         int adminCount = 0;
 
         for (UserAccess ua : accessList) {
+            // 如果 ua.getRole() == AccessRole.ADMIN 则 adminCount++
             if (ua.getRole() == AccessRole.ADMIN) {
                 adminCount++;
             }
@@ -99,8 +100,10 @@ public class UserAccessServiceImpl implements UserAccessService {
                     user.getName(),
                     user.getEmail(),
                     lastActiveStr,
-                    user.getStatus()
+                    user.getStatus(),
+                    ua.getRole()
             );
+
             userList.add(item);
         }
 
@@ -108,4 +111,5 @@ public class UserAccessServiceImpl implements UserAccessService {
 
         return new BoardUserListResponseDto(totalUsers, adminCount, userList);
     }
+
 }

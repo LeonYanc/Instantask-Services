@@ -99,8 +99,10 @@ public class UserAccessServiceImpl implements UserAccessService {
                     user.getName(),
                     user.getEmail(),
                     lastActiveStr,
-                    user.getStatus()
+                    user.getStatus(),
+                    ua.getRole()
             );
+
             userList.add(item);
         }
 
@@ -108,4 +110,5 @@ public class UserAccessServiceImpl implements UserAccessService {
 
         return new BoardUserListResponseDto(totalUsers, adminCount, userList);
     }
+
 }

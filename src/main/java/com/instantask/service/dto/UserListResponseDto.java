@@ -1,12 +1,15 @@
 package com.instantask.service.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * DTO for user list response:
  * totalUsers + list of UserListItemDto
  */
-public class UserListResponseDto {
+public class UserListResponseDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int totalUsers;
     private List<UserListItemDto> userList;
@@ -18,7 +21,6 @@ public class UserListResponseDto {
         this.totalUsers = totalUsers;
         this.userList = userList;
     }
-
 
     public int getTotalUsers() {
         return totalUsers;

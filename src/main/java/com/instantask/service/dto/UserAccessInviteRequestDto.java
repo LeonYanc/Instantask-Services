@@ -1,11 +1,14 @@
 package com.instantask.service.dto;
 
 import com.instantask.service.model.AccessRole;
+import java.io.Serializable;
 
 /**
  * DTO for inviting an existing user to a board, with a specific role.
  */
-public class UserAccessInviteRequestDto {
+public class UserAccessInviteRequestDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String email;
     private String boardId;

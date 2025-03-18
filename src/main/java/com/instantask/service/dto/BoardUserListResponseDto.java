@@ -1,12 +1,15 @@
 package com.instantask.service.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * DTO for returning totalUsers, totalAdmins, and userList
  * when querying a specific board.
  */
-public class BoardUserListResponseDto {
+public class BoardUserListResponseDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int totalUsers;
     private int totalAdmins;
@@ -21,10 +24,10 @@ public class BoardUserListResponseDto {
         this.userList = userList;
     }
 
-
     public int getTotalUsers() {
         return totalUsers;
     }
+
     public void setTotalUsers(int totalUsers) {
         this.totalUsers = totalUsers;
     }
@@ -32,6 +35,7 @@ public class BoardUserListResponseDto {
     public int getTotalAdmins() {
         return totalAdmins;
     }
+
     public void setTotalAdmins(int totalAdmins) {
         this.totalAdmins = totalAdmins;
     }
@@ -39,6 +43,7 @@ public class BoardUserListResponseDto {
     public List<BoardUserItemDto> getUserList() {
         return userList;
     }
+
     public void setUserList(List<BoardUserItemDto> userList) {
         this.userList = userList;
     }

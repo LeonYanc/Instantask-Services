@@ -10,6 +10,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/histories")
+@CrossOrigin(origins = "http://localhost:3000")
 public class HistoryController {
 
     @Autowired

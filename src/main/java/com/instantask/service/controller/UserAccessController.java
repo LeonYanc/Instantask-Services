@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller for managing user-board access (roles).
  */
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/user-access")
 @CrossOrigin(origins = "http://localhost:3000")

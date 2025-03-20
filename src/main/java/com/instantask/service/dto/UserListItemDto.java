@@ -1,10 +1,14 @@
 package com.instantask.service.dto;
 
+import java.io.Serializable;
+
 /**
  * DTO for an item in the user list:
  * id, name, email, lastActiveTime (string), status
  */
-public class UserListItemDto {
+public class UserListItemDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String name;
@@ -23,7 +27,6 @@ public class UserListItemDto {
         this.lastActiveTime = lastActiveTime;
         this.status = status;
     }
-
 
     public String getId() {
         return id;

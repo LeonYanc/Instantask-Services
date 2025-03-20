@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * REST Controller for user management (no role).
  */
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:3000")

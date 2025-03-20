@@ -1,12 +1,15 @@
 package com.instantask.service.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * DTO for updating user info.
  * If partial update is desired, check for null in service.
  */
-public class UpdateUserRequestDto {
+public class UpdateUserRequestDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
     private String email;
@@ -27,7 +30,6 @@ public class UpdateUserRequestDto {
         this.status = status;
         this.lastActiveTime = lastActiveTime;
     }
-
 
     public String getName() {
         return name;
@@ -66,5 +68,6 @@ public class UpdateUserRequestDto {
         this.lastActiveTime = lastActiveTime;
     }
 }
+
 
 

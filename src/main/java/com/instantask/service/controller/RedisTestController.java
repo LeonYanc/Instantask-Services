@@ -2,7 +2,7 @@ package com.instantask.service.controller;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/redis-test")
 public class RedisTestController {
